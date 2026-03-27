@@ -1,12 +1,12 @@
 {
     "name": "comestro/laravel-razorpay",
-    "description": "An easy-to-use Razorpay integration package for Laravel.",
+    "description": "An easy-to-use Razorpay Payment integration package for Laravel 13.",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Comestro techlabs Pvt Ltd",
-            "email": "saique@comestro.com"
+            "email": "saidque@comestro.com"
         }
     ],
     "require": {

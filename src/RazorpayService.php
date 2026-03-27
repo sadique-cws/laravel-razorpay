@@ -70,7 +70,6 @@ class RazorpayService
      * @param string $paymentId  The razorpay_payment_id.
      * @param string $signature  The razorpay_signature.
      * @return bool
-     * @throws SignatureVerificationError
      */
     public function verifySignature($orderId, $paymentId, $signature)
     {
@@ -87,4 +86,27 @@ class RazorpayService
             return false;
         }
     }
+
+    // =========================================================================
+    // Core Razorpay API Resources - Fully Exposed
+    // =========================================================================
+
+    public function payment() { return $this->api->payment; }
+    public function order() { return $this->api->order; }
+    public function customer() { return $this->api->customer; }
+    public function refund() { return $this->api->refund; }
+    public function token() { return $this->api->token; }
+    public function card() { return $this->api->card; }
+    public function transfer() { return $this->api->transfer; }
+    public function virtualAccount() { return $this->api->virtualAccount; }
+    public function addon() { return $this->api->addon; }
+    public function plan() { return $this->api->plan; }
+    public function subscription() { return $this->api->subscription; }
+    public function invoice() { return $this->api->invoice; }
+    public function item() { return $this->api->item; }
+    public function qrCode() { return $this->api->qrCode; }
+    public function paymentLink() { return $this->api->paymentLink; }
+    public function settlement() { return $this->api->settlement; }
+    public function webhook() { return $this->api->webhook; }
+    public function fundAccount() { return $this->api->fundAccount; }
 }

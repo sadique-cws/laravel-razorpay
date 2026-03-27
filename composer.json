@@ -1,0 +1,34 @@
+{
+    "name": "comestro/laravel-razorpay",
+    "description": "An easy-to-use Razorpay integration package for Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Comestro",
+            "email": "hello@example.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "razorpay/razorpay": "^2.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Comestro\\Razorpay\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Comestro\\Razorpay\\RazorpayServiceProvider"
+            ],
+            "aliases": {
+                "Razorpay": "Comestro\\Razorpay\\Facades\\Razorpay"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

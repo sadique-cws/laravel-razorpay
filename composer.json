@@ -19,6 +19,15 @@
             "Comestro\\Razorpay\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Comestro\\Razorpay\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0",
+        "phpunit/phpunit": "^10.0|^11.0"
+    },
     "extra": {
         "laravel": {
             "providers": [

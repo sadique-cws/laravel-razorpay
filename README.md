@@ -101,10 +101,103 @@ $subscription = Razorpay::subscription()->create([
 ]);
 ```
 
-#### Supported Endpoints:
+#### Supported Endpoints & Examples:
 
-The Facade natively exposes all these Razorpay endpoints:
-`payment()`, `order()`, `customer()`, `refund()`, `token()`, `card()`, `transfer()`, `virtualAccount()`, `addon()`, `plan()`, `subscription()`, `invoice()`, `item()`, `qrCode()`, `paymentLink()`, `settlement()`, `webhook()`, and `fundAccount()`.
+The Facade natively exposes all these Razorpay endpoints. Here is a quick reference on how to use them:
+
+```php
+use Comestro\Razorpay\Facades\Razorpay;
+
+// 1. Payments
+$payment = Razorpay::payment()->fetch('pay_29QQoUBi66xm2f');
+$captured = Razorpay::payment()->fetch('pay_29QQoUBi66xm2f')->capture(['amount' => 50000]); // 500 INR
+
+// 2. Orders
+$order = Razorpay::order()->create([
+    'receipt' => 'receipt_1', 'amount' => 50000, 'currency' => 'INR'
+]);
+$orders = Razorpay::order()->all();
+
+// 3. Customers
+$customer = Razorpay::customer()->create([
+    'name' => 'Gaurav Kumar', 'email' => 'gaurav.kumar@example.com'
+]);
+
+// 4. Refunds
+$refund = Razorpay::refund()->create([
+    'payment_id' => 'pay_29QQoUBi66xm2f', 'amount' => 1000 
+]);
+
+// 5. Tokens
+$tokens = Razorpay::token()->all(['customer_id' => 'cust_1234']);
+
+// 6. Cards
+$card = Razorpay::card()->fetch('card_1234');
+
+// 7. Transfers
+$transfer = Razorpay::transfer()->create([
+    'account' => 'acc_1234', 'amount' => 100, 'currency' => 'INR'
+]);
+
+// 8. Virtual Accounts
+$va = Razorpay::virtualAccount()->create([
+    'receiver_types' => ['bank_account'], 'description' => 'First Virtual Account'
+]);
+
+// 9. Addons
+$addon = Razorpay::addon()->create([
+    'subscription_id' => 'sub_1234', 'item' => ['name' => 'Extra', 'amount' => 30000, 'currency' => 'INR']
+]);
+
+// 10. Plans
+$plan = Razorpay::plan()->create([
+    'item' => ['name' => 'Premium', 'amount' => 50000, 'currency' => 'INR'],
+    'period' => 'monthly', 'interval' => 1
+]);
+
+// 11. Subscriptions
+$subscription = Razorpay::subscription()->create([
+    'plan_id' => 'plan_1234', 'customer_id' => 'cust_1234', 'total_count' => 6
+]);
+
+// 12. Invoices
+$invoice = Razorpay::invoice()->create([
+    'type' => 'invoice', 'customer_id' => 'cust_1234',
+    'line_items' => [['name' => 'Masterclass', 'amount' => 10000]]
+]);
+$issued = Razorpay::invoice()->fetch('inv_1234')->issue();
+
+// 13. Items
+$item = Razorpay::item()->create([
+    'name' => 'Book', 'amount' => 50000, 'currency' => 'INR'
+]);
+
+// 14. QR Codes
+$qr = Razorpay::qrCode()->create([
+    'type' => 'upi_qr', 'name' => 'Store Front', 'usage' => 'single_use', 'fixed_amount' => true,
+    'payment_amount' => 30000
+]);
+
+// 15. Payment Links
+$link = Razorpay::paymentLink()->create([
+    'amount' => 1000, 'currency' => 'INR', 'description' => 'Payment for service'
+]);
+
+// 16. Settlements
+$settlements = Razorpay::settlement()->all();
+
+// 17. Webhooks
+$webhook = Razorpay::webhook()->create([
+    'url' => 'https://example.com/webhook', 'events' => ['payment.authorized'],
+    'secret' => 'my_secret_key'
+]);
+
+// 18. Fund Accounts
+$fundAccount = Razorpay::fundAccount()->create([
+    'customer_id' => 'cust_1234', 'account_type' => 'bank_account',
+    'bank_account' => ['name' => 'Gaurav Kumar', 'ifsc' => 'HDFC0000053', 'account_number' => '765432123456789']
+]);
+```
 
 ### Accessing the Native SDK Configuration
 

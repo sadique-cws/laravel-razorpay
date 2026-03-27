@@ -67,18 +67,51 @@ public function verify(Request $request)
 }
 ```
 
-### Accessing the Native SDK
+### 3. Accessing the Complete Razorpay API
 
-Need to do something complex like managing webhooks, customers, or refunds? You can always access the raw Razorpay native client directly:
+This package officially wraps the full Razorpay REST SDK. You don't need to manually instantiate an `Api` object. Every Razorpay resource is available as a method directly on the `Razorpay` Facade!
+
+```php
+use Comestro\Razorpay\Facades\Razorpay;
+
+// Create a new Customer
+$customer = Razorpay::customer()->create([
+    'name'  => 'Gaurav Kumar',
+    'email' => 'gaurav.kumar@example.com',
+    'contact' => '9123456780',
+]);
+
+// Fetch a specific Payment
+$payment = Razorpay::payment()->fetch('pay_29QQoUBi66xm2f');
+
+// Refund a Payment
+$refund = Razorpay::refund()->create([
+    'payment_id' => 'pay_29QQoUBi66xm2f',
+    'amount'     => 1000 // 1000 paise
+]);
+
+// Fetch all Orders
+$orders = Razorpay::order()->all();
+
+// Create a Subscription
+$subscription = Razorpay::subscription()->create([
+    'plan_id'     => 'plan_7wAosPWtrkjx6G',
+    'customer_id' => 'cust_4t1YmEwb757Lw5',
+    'total_count' => 6,
+]);
+```
+
+#### Supported Endpoints:
+
+The Facade natively exposes all these Razorpay endpoints:
+`payment()`, `order()`, `customer()`, `refund()`, `token()`, `card()`, `transfer()`, `virtualAccount()`, `addon()`, `plan()`, `subscription()`, `invoice()`, `item()`, `qrCode()`, `paymentLink()`, `settlement()`, `webhook()`, and `fundAccount()`.
+
+### Accessing the Native SDK Configuration
+
+If you ever need the raw bare-metal client instance for any reason:
 
 ```php
 $client = Razorpay::client();
-
-// Fetch a payment by ID
-$payment = $client->payment->fetch('pay_123456');
-
-// Issue a refund
-$client->payment->fetch('pay_123456')->refund(['amount' => 100]);
 ```
 
 ## License
